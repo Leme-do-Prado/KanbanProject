@@ -1,4 +1,5 @@
 package Entities;
+
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -7,11 +8,11 @@ import descriptive.State;
 public class Task {
 	private String taskName;
 	private String taskDescription;
-	private State state;
+	private State state = State.TO_DO;
 	private LocalDate dueDate;
 	private int estimatedHours;
 	private Person taskAssignee;
-	
+
 	public Task(String taskName, String taskDescription, LocalDate dueDate, Person taskAssignee, int estimatedHours) {
 		this.taskName = taskName;
 		this.taskDescription = taskDescription;
@@ -34,10 +35,6 @@ public class Task {
 
 	public void setTaskDescription(String taskDescription) {
 		this.taskDescription = taskDescription;
-	}
-
-	public State getState() {
-		return state;
 	}
 
 	public void setState(State state) {
@@ -71,24 +68,34 @@ public class Task {
 	public float estimateWorkDays() {
 		return estimatedHours / taskAssignee.getShift();
 	}
-	
+
+	public void updateState() {
+		switch (this.state) {
+		case TO_DO:
+			this.state = State.IN_PROGRESS;
+			break;
+		case IN_PROGRESS:
+			this.state = State.DONE;
+			break;
+		case DONE:
+			this.state = State.TO_DO;
+			break;
+		}
+	}
+
 	public boolean isOverdue() {
-		
 		LocalDate today = LocalDate.now();
-		
-		if(today.isAfter(dueDate)) {
+
+		if (today.isAfter(dueDate)) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Task " + taskName
-				+ "/n" + taskDescription
-				+ "/n/n Assignee: " + taskAssignee.getName()
-				+ "/n Estimated Worktime: " + estimateWorkDays() + " days"
-				+ "/n Due " + dueDate;
+		return "Task " + taskName + "/n" + taskDescription + "/n/n Assignee: " + taskAssignee.getName()
+				+ "/n Estimated Worktime: " + estimateWorkDays() + " days" + "/n Due " + dueDate;
 	}
 }

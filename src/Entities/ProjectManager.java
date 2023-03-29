@@ -7,7 +7,6 @@ public class ProjectManager {
 	private List<Project> projects = new ArrayList();
 	
 	public ProjectManager(){
-		
 	}
 	
 	public void addProject(Project project) {
