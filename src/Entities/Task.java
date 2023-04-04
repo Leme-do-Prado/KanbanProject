@@ -40,6 +40,10 @@ public class Task {
 	public void setState(State state) {
 		this.state = state;
 	}
+	
+	public State getState() {
+		return this.state;
+	}
 
 	public LocalDate getDueDate() {
 		return dueDate;

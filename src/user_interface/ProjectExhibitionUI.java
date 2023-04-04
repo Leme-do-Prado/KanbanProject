@@ -29,29 +29,42 @@ public class ProjectExhibitionUI implements ActionListener {
 		this.frame = new JFrame();
 
 		JPanel pane = new JPanel(new GridBagLayout());
-
-		JPanel subPane = new JPanel();
-		BoxLayout boxlayout = new BoxLayout(subPane, BoxLayout.Y_AXIS);
-		subPane.setLayout(boxlayout);
-		subPane.add(new JLabel("PROJECT"));
-		subPane.add(new JLabel(this.project2.getProjectName()));
-		subPane.add(new JLabel(this.project2.getProjectDescription()));
-
-		GridBagConstraints const1 = new GridBagConstraints();
+	    
+	    JPanel subPane = new JPanel();
+	    subPane.setLayout(new BoxLayout(subPane, BoxLayout.PAGE_AXIS));
+	    
+	    subPane.add(new JLabel("PROJECT"));
+	    subPane.add(new JLabel(""));
+	    subPane.add(new JLabel(">" + this.project2.getProjectName() + "<"));
+	    subPane.add(new JLabel(this.project2.getProjectDescription()));
+	    subPane.add(new JLabel(""));
+	    subPane.add(new JLabel("--------------------------"));
+	    
+	    GridBagConstraints const1 = new GridBagConstraints();
 		const1.gridx = 0;
 		const1.gridy = 0;
-		const1.fill = GridBagConstraints.HORIZONTAL;
-		pane.add(subPane, const1);
-		
-		
-		GridBagConstraints const2 = new GridBagConstraints();
-		for (Task t : project2.getTasks()) {
-			int i = 1;
-			const2.gridx = 0;
-			const2.gridy = i;
-			i++;
-		}
+	    const1.fill = GridBagConstraints.HORIZONTAL;
+	    pane.add(subPane, const1);
+	    
+	    JPanel subPane2 = new JPanel();
+	    subPane2.setLayout(new BoxLayout(subPane2, BoxLayout.PAGE_AXIS));
+	    
+	    GridBagConstraints const2 = new GridBagConstraints();
+		const2.gridx = 0;
+		const2.gridy = 1;
+	    const2.fill = GridBagConstraints.HORIZONTAL;
 
+	    for(Task t : project2.getTasks()) {
+	    	int i=1;
+	    	subPane2.add(new JLabel(i + ". Task name: " + t.getTaskName()));
+	    	subPane2.add(new JLabel("Task description: " + t.getTaskDescription()));
+	    	subPane2.add(new JLabel("Due date: " + t.getDueDate()));
+	    	i++;
+	    	subPane2.add(new JLabel("--------------------------"));
+	    }
+	    
+	    pane.add(subPane2, const2);
+	    
 		frame.add(pane);
 		frame.setSize(400, 500);
 		frame.setVisible(true);
@@ -67,7 +80,7 @@ public class ProjectExhibitionUI implements ActionListener {
 		if (e.getSource() == exit) {
 			abortSystem();
 		} else if (e.getSource() == updateState) {
-
+			
 		}
 	}
 }
